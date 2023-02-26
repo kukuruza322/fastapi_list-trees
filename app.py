@@ -4,13 +4,10 @@ from starlette.responses import Response
 
 from api import crud
 from config import Settings
-from data.database import engine
-from data.models import Node
 
 
 app = FastAPI()
 app.include_router(crud.router)
-Node.metadata.create_all(bind=engine)
 
 
 @lru_cache()

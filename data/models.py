@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import declarative_base
 
+
 Base = declarative_base()
 
 
@@ -11,7 +12,7 @@ class Node(Base):
     value = Column(Integer, nullable=True)
     parent = Column(Integer, ForeignKey(id), nullable=False, index=True)
 
-    def __init__(self, name, value=None, parent=None):
+    def __init__(self, name, value=None, parent=0):
         self.name = name
         self.value = value
         self.parent = parent

@@ -17,7 +17,7 @@ def get_all_nodes(db: Session = Depends(get_db)):
 
 
 @router.post("/nodes")
-def create_person(data=Body(), db: Session = Depends(get_db)):
+def create_node(data=Body(), db: Session = Depends(get_db)):
     node = Node(name=data["name"])
     db.add(node)
     db.commit()
@@ -26,7 +26,7 @@ def create_person(data=Body(), db: Session = Depends(get_db)):
 
 
 @router.put("/nodes")
-def edit_person(data=Body(), db: Session = Depends(get_db)):
+def edit_node(data=Body(), db: Session = Depends(get_db)):
     node = db.query(Node).filter(Node.id == data["id"]).first()
     if not node:
         return JSONResponse(status_code=404, content={"message": "Такой узел отсутствует"})
@@ -37,7 +37,7 @@ def edit_person(data=Body(), db: Session = Depends(get_db)):
 
 
 @router.delete("/nodes/{id}")
-def delete_person(id, db: Session = Depends(get_db)):
+def delete_node(id, db: Session = Depends(get_db)):
     node = db.query(Node).filter(Node.id == id).first()
     if not node:
         return JSONResponse(status_code=404, content={"message": "Такой узел отсутствует"})
