@@ -1,19 +1,20 @@
-### 1. Подготовка
-1. Запустить Docker Desktop
-2. Убедиться что включен режим Linux Containers
-3. Запускать контейнер с базой данных через терминал WSL. 
-Для этого открыть терминал Ubuntu в папке проекта с .yml файлом и выполнить команду:
+### 1. Подготовка к запуску на Windows
 
-*docker-compose -f run.yml up*
+Открыть терминал Ubuntu (или WSL + Docker Desktop + Linux Containers) 
+в папке проекта с .yml файлом и выполнить команды:
 
-### 2. Миграции alembic
+*docker-compose -f run.yml up -d*
 
-*alembic init migrations*
+*docker build -t tree .*
 
-*alembic revision --autogenerate -m "initial migration"*
+*docker run -p 8000:8000 tree*
+
+### 2. Создать таблицы alembic на основе существующих миграций
+
+Выполнить из каталога ./data, с использованием venv :
 
 *alembic upgrade heads*
 
-### 3. Запуск сервера приложения
+### 3. Создать корневой узел root через SQL консоль
 
-*uvicorn app:app --reload*
+*INSERT INTO node (id, name, value, parent) VALUES (1, 'root', null, null);*

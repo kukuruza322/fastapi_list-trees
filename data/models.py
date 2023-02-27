@@ -16,7 +16,10 @@ class Node(Base):
         backref=backref("parent_id", remote_side=id, passive_deletes=True),
     )
 
+    # По умолчанию привязываем объекты к корню root с id = 1.
+    # При его удалении/инициализации INSERT INTO node (id, name, value, parent) VALUES (1, 'root', null, null);
     def __init__(self, name, value=None, parent=1):
+        super().__init__(self)
         self.name = name
         self.value = value
         self.parent = parent
